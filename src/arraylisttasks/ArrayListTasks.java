@@ -5,6 +5,9 @@
  */
 package arraylisttasks;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 
 /**
@@ -13,6 +16,8 @@ import java.util.ArrayList;
  */
 public class ArrayListTasks {
 
+    public static ArrayList personArrayList = new ArrayList();
+    
     /**
      * @param args the command line arguments
      */
@@ -31,6 +36,9 @@ public class ArrayListTasks {
         shoppingList.add("bread");
         shoppingList.add("quiche");
         
+        
+        obtainRecords("C:\\Users\\92019472\\OneDrive - Computer Power Plus\\Data Structure and Algorithm\\Activities\\ArrayListTasks\\src\\arraylisttasks\\PersonList.csv");
+        printArrayList(personArrayList);
     }
     
     public static void printArrayList(ArrayList list){
@@ -38,6 +46,30 @@ public class ArrayListTasks {
             System.out.println(list.get(i));
         }
         
+    }
+    
+    public static void obtainRecords(String path){
+        LineNumberReader lr = null;    
+        String[] oneRecord = new String[3];      
+        Person person;
+        
+        try {
+            FileReader inputStream = new FileReader(path);
+            
+            lr = new LineNumberReader(inputStream);
+            String str;
+            
+            while((str = lr.readLine()) != null){
+                oneRecord = str.split(",");
+                
+                person = new Person(oneRecord[0], oneRecord[1], oneRecord[2]);
+                personArrayList.add(person);
+            }
+            
+        }
+        catch(IOException ioe){
+            System.out.println("IOException occured");
+        }
     }
     
 }
